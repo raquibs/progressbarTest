@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<style>
+    .Progress {
+        width: 100%;
+        height: 30px;
+        position: relative;
+        border: 1px solid #ccc;
+    }
+
+    .Bar {
+        width: 10px;
+        height: 100%;
+        position: absolute;
+        background-color: #B0E0E6;
+        opacity:0.5;
+    }
+
+    .center {
+        text-align: center;
+        vertical-align: central;
+        display: table-cell;
+        position: absolute;
+        width:100%;
+    }
+</style>
+<body>
+
+    <h1>Progress Bar Test</h1>
+   
+    <div id="myProgress1" class="Progress">
+        <div id="status1" class="center">00</div>
+          <div id="myBar1" class="Bar"></div>
+    </div>
+    <br />
+    <div id="myProgress2" class="Progress">
+        <div id="status2" class="center">00</div>
+        <div id="myBar2" class="Bar"></div>
+    </div>
+    <br />
+    <div id="myProgress3" class="Progress">
+        <div id="status3" class="center">00</div>
+        <div id="myBar3" class="Bar"></div>
+    </div>
+    <br>
+    <select id="BarId">
+        <option value="myBar1">myProgress1</option>
+        <option value="myBar2">myProgress2</option>
+        <option value="myBar3">myProgress3</option>
+    </select>
+    <button onclick="movedown(25)">-25</button>
+    <button onclick="movedown(10)">-10</button>
+    <button onclick="moveup(10)">+10</button>
+    <button onclick="moveup(25)">+25</button>
+    
+    <script>
+        function moveup(num) {
+
+            var elem = document.getElementById(document.getElementById("BarId").value);
+            var pelem = elem.parentElement.id.toString();
+            var status = document.getElementById(pelem).firstElementChild;
+            //alert("Parent " + pelem);
+            var width = num;
+            var cwidth = parseInt(elem.style.width);
+            if (isNaN(cwidth)) { cwidth = 0; }
+            if (cwidth == 100) {
+                return;
+            }
+            else {
+                var twidth = cwidth + width;
+                if (twidth > 100) {
+                    elem.style.width = 100 + "%"
+                    status.innerHTML = elem.style.width;
+                } else {
+                    elem.style.width = cwidth + width + "%";
+                    status.innerHTML= elem.style.width;
+                    
+                }
+                    
+            }
+        }
+            function movedown(num) {
+                var elem = document.getElementById(document.getElementById("BarId").value);
+                var pelem = elem.parentElement.id.toString();
+                var status = document.getElementById(pelem).firstElementChild;
+                var width = num;
+                var cwidth = parseInt(elem.style.width);
+                if (isNaN(cwidth)) { return;}
+                if (cwidth == 0 || cwidth < 10) {
+                    elem.style.width = 0 + "%"
+                    status.innerHTML = elem.style.width;
+                }
+                else {
+                    elem.style.width = cwidth - width + "%"
+                    status.innerHTML = elem.style.width;
+                    
+                }
+        }
+    </script>
+
+</body>
+</html>
